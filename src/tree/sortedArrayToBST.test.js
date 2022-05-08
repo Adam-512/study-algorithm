@@ -10,15 +10,16 @@ class Node {
   }
 }
 
-function sortedArrayToBST(nums) {
-  function helper(nums, lower, upper) {
-    if (lower > upper) {
-      return;
-    }
-    let mid = (upper - lower) / 2;
-    let root = new Node(nums[mid]);
-    root.left = helper(nums, lower, mid - 1);
-    root.right = helper(nums, mid + 1, upper);
+function helper(nums, lower, upper) {
+  if (lower > upper) {
+    return;
   }
+  let mid = (upper + lower) / 2;
+  let root = new Node(nums[mid]);
+  root.left = helper(nums, lower, mid - 1);
+  root.right = helper(nums, mid + 1, upper);
+}
+
+function sortedArrayToBST(nums) {
   return helper(nums, 0, nums.length - 1);
 }

@@ -41,7 +41,7 @@ function inOrder(root) {
   return res;
 }
 
-function bfs(root) {
+function levelOrder(root) {
   if (root == null) {
     return;
   }
@@ -49,15 +49,20 @@ function bfs(root) {
   let res = [];
   stack.push(root);
   while (stack.length) {
-    let node = stack.pop();
-    res.push(node.val);
-    let l = node.left;
-    let r = node.right;
-    if (l != null) {
-      stack.push(l);
-    }
-    if (r != null) {
-      stack.push(r);
+    let n = stack.length
+    res.push([])
+    for (let i = 0; i < n; i++) {
+      let node = stack.shift();
+      res[res.length - 1].push(node.val)
+      let l = node.left;
+      let r = node.right;
+      if (l != null) {
+        stack.push(l);
+      }
+      if (r != null) {
+        stack.push(r);
+      }
     }
   }
+  return res
 }
