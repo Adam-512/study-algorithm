@@ -8,22 +8,29 @@
     输出: false
  */
 
-function isAnagram(s1, s2) {
-    let mp = new Map()
-    let res = true
-    for (let i = 0; i < s1.length; i++) {
-        mp.set(s1[i], i)
+var isAnagram = function (s, t) {
+  if (s.length !== t.length) {
+    return false;
+  }
+  const table = new Array(26).fill(0);
+  for (let i = 0; i < s.length; ++i) {
+    table[s.codePointAt(i) - "a".codePointAt(0)]++;
+  }
+  for (let i = 0; i < t.length; ++i) {
+    table[t.codePointAt(i) - "a".codePointAt(0)]--;
+    if (table[t.codePointAt(i) - "a".codePointAt(0)] < 0) {
+      return false;
     }
-    for (let i = 0; i < s2.length; i++) {
-        if (!mp.has(s2[i])) {
-            res = false
-            break
-        }
-    }
-    return res;
-}
+  }
+  return true;
+};
 
-test('', () => {
-    expect(isAnagram("anagram","nagaram")).toBe(true)
-    expect(isAnagram("rat","car")).toBe(false)
+var isAnagram1 = function(s, t) {
+    return s.length == t.length && [...s].sort().join('') === [...t].sort().join('')
+};
+
+
+test("", () => {
+  expect(isAnagram("anagram", "nagaram")).toBe(true);
+  expect(isAnagram("rat", "car")).toBe(false);
 });
